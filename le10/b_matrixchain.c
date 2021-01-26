@@ -1,6 +1,6 @@
 #include <stdio.h> 
 #define N 101
-#define INF 101
+#define INF 2e9
 int m[N][N],p[N];
 int min(int,int);
 void matrixchainorder(int);
@@ -19,13 +19,13 @@ int min(int x,int y)
 void matrixchainorder(int n)
 {
 	//initialization
-	for(int i=1;i<n;i++) m[i][i]=0;
+	for(int i=1;i<=n;i++) m[i][i]=0;
 	//DP
-	for(int l=2;l<n;l++){
-		for(int i=1;i<=n-l;i++){
+	for(int l=2;l<=n;l++){ //current length (range of i-j)
+		for(int i=1;i<=n-l+1;i++){ 
 			int j=i+l-1;
-			m[i][j]=INF;
-			for(int k=i;k<=j-1;k++){
+			m[i][j]=INF; //set dafault value to INFINITY
+			for(int k=i;k<j;k++){
 				int q=m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j];
 				m[i][j]=min(m[i][j],q);
 			}
