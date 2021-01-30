@@ -1,7 +1,7 @@
 //bfs using recursive function
 #include <stdio.h>
 #define N 101
-#define INF 1e9
+#define DEF -1
 typedef struct{
 	int dis; //distance from vertex 1
 	int color; //status(WHITE,GRAY,BLACK)
@@ -56,7 +56,7 @@ void bfs(int n,int s) //vertex[1..n], start search from vertex s
 	//initialization
 	for(int i=1;i<=n;i++){
 		graph[i].color=0;
-		graph[i].dis=INF; 
+		graph[i].dis=DEF; //set current vertex's distance as DEFAULT(-1)
 	}
 	//search from vertex s
 	graph[s].dis=0;
@@ -65,8 +65,8 @@ void bfs(int n,int s) //vertex[1..n], start search from vertex s
 		int u=dequeue(); //current vertex
 		for(int v=1;v<=graph[u].edge;v++){ //visit each vertex that connected to current vertex
 			if(graph[graph[u].vertex[v]].color==0){ //if this vertex hasn't been visited
-				graph[graph[u].vertex[v]].color==1; //set as "has just been discovered"
-				graph[graph[u].vertex[v]].dis==graph[u].dis+1; //save distance
+				graph[graph[u].vertex[v]].color=1; //set as "has just been discovered"
+				graph[graph[u].vertex[v]].dis=graph[u].dis+1; //save distance
 				enqueue(graph[u].vertex[v]); //enqueue this vertex
 			}
 		}
